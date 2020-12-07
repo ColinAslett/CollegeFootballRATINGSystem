@@ -14,4 +14,4 @@ This model only uses games from this season(2020) and the current top 25(as of 1
 | :---: | :---: | :---: | :---: | :---: |
 | Notre Dame | 2242.789 | 159.720 | 2562.223 | 1923.348 |
 | Alabama | 2215.276 | 172.311 | 2559.898 | 1870.653 |
-| Ohio State } 2161.648 | 191.887 | 2545.428 | 1777.874 |
+| Ohio State | 2161.648 | 191.887 | 2545.428 | 1777.874 |
