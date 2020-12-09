@@ -51,6 +51,8 @@ public class Glicko {
 					t1.result(t2, 0);
 					t2.result(t1, 1);
 				}
+				t1.opp_list.add(t2);
+				t2.opp_list.add(t1);
 				t_list.add(t1);
 				t_list.add(t2);
 			}
@@ -93,11 +95,22 @@ public class Glicko {
 					t_1.result(t_2, 0);
 					t_2.result(t_1, 1);
 				}
+				t_1.opp_list.add(t_2);
+				t_2.opp_list.add(t_1);
 			}
 		}
-		//printing results
+		//Calculating Strength of Schedule
 		for(int i = 0;i < t_list.size();i++){
-			System.out.println(t_list.get(i).name + "," + t_list.get(i).rating + "," + t_list.get(i).RD);
+			double total_e = 0.0;
+			for(int a = 0;a < t_list.get(i).opp_list.size();a++){
+				total_e += t_list.get(i).opp_list.get(a).rating;
+			}
+			t_list.get(i).SOS = (total_e / (double)t_list.get(i).opp_list.size());
+		}
+		//printing results
+		System.out.println("NAME,RATING,RATING DEVIATION,STRENGTH OF SCHEDULE");
+		for(int i = 0;i < t_list.size();i++){
+			System.out.println(t_list.get(i).name + "," + t_list.get(i).rating + "," + t_list.get(i).RD + "," + t_list.get(i).SOS);
 		}
 	}
 
@@ -105,6 +118,9 @@ public class Glicko {
 class T{
 	double system_constant = .5;//between .3 and 1.2
 	String name;
+	//Strength of Schedule Stuff
+	ArrayList<T> opp_list = new ArrayList<>();
+	double SOS = 0;
 	//old metrics
 	double rating = 1500;
 	double RD = 350;
