@@ -8,6 +8,7 @@ public class Algo {
 	ArrayList<Data> data_List = new ArrayList<>();
 	DiGraph D;
 	ArrayList<String> t_list = new ArrayList<>();
+	int BEGINNING_EDGE_COUNT = 0;
 	public Algo(ArrayList<Data> data_List2){
 		data_List = data_List2;
 		System.out.println(data_List.size());
@@ -50,6 +51,7 @@ public class Algo {
 			}
 			D.addEdge(i1, i2);
 		}
+		BEGINNING_EDGE_COUNT = D.E;
 		//Remove Some edges to reduce
 		
 		int t = 132;
@@ -60,28 +62,22 @@ public class Algo {
 		}
 		
 		//ALGORITHM!!!!!!!!!!!!!!!
+		//Set abitrarily to 100, though this should be adjusted for future use in case it doesn not work
 		for(int i = 0;i < 100;i++){
 			if(numCycles() > 0){
 				ArrayList<Integer> s = len_cycles();
 				breakLoop(s.get(0),s.get(1));
 			}
-		}
-		//PRINTING OUT RESULTS
-		for(int i = 0;i < t_list.size();i++){
-			DirectedDFS ra = new DirectedDFS(D,i);
-			System.out.println(t_list.get(i));
-			for(int a = 0;a < ra.order.size();a++){
-				System.out.println("        " + t_list.get(ra.order.get(a)));
+			else{
+				System.out.println("Num of Iterations: " + i);
+				break;
 			}
 		}
-		//Top
-		/*
-		Topological top = new Topological(D);
-		System.out.println(top.hasOrder());
-		for(int v : top.order()){
-			System.out.println(t_list.get(v));
-		}
-		*/
+		//RESULT PRINTING
+		System.out.println("ORIGINAL EDGES: " + BEGINNING_EDGE_COUNT + " , NEW EDGE COUNT AFTER ITERATIONS: " + D.E);
+		System.out.println("EDGE LOSS: " + (1 - ((double)D.E / (double)BEGINNING_EDGE_COUNT))*100 + "%");
+		//printAdjacencyMatrix();
+		//printDirectEdges();
 	}
 	//Breaking a Loop, takes in the id of the team and the number of elements that need to be deleted from its list
 	public void breakLoop(int id,int num_del){
@@ -147,6 +143,36 @@ public class Algo {
 		}
 		//System.out.println(num + " / " + t_list.size() + " , EDGES: " + D.E);
 		return num;
+	}
+	//Print out only direct edges for each team 
+	private void printDirectEdges(){
+		//Printing out direct edges
+		for(int i = 0;i < t_list.size();i++){
+			System.out.println(t_list.get(i));
+			for(int a = 0;a < D.adj(i).size();a++){
+				System.out.println("       " +t_list.get(D.adj(i).get(a)));
+			}
+		}		
+	}
+	//Printing out the adjacency matrix for each team
+	private void printAdjacencyMatrix(){
+		//PRINTING OUT ADJCENCY MATRIX
+		for(int i = 0;i < t_list.size();i++){
+			DirectedDFS ra = new DirectedDFS(D,i);
+			System.out.println(t_list.get(i));
+			for(int a = 0;a < ra.order.size();a++){
+				System.out.println("        " + t_list.get(ra.order.get(a)));
+			}
+		}		
+	}
+}
+//Result Class, each team gets one
+class Result{
+	String name;
+	int beatWins = 0;
+	int beatLosses = 0;
+	public Result(String n){
+		name = n;
 	}
 }
 //This is the graph class
