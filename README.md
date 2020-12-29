@@ -1,6 +1,6 @@
 # CollegeFootballRATINGSystem
 
-I used Glicko 2 algorithm as presented in the paper: http://www.glicko.net/glicko/glicko2.pdf.
+I used Glicko 2 algorithm as presented in the paper: http://www.glicko.net/glicko/glicko2.pdf for the glicko.java file. I used beatGraph for the algo.java file.
 
 ## Modifications
 
