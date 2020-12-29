@@ -9,6 +9,7 @@ public class Algo {
 	DiGraph D;
 	ArrayList<String> t_list = new ArrayList<>();
 	int BEGINNING_EDGE_COUNT = 0;
+	ArrayList<Result> result_list = new ArrayList<>();
 	public Algo(ArrayList<Data> data_List2){
 		data_List = data_List2;
 		System.out.println(data_List.size());
@@ -73,9 +74,23 @@ public class Algo {
 				break;
 			}
 		}
+
+		//Calculating results
+		for(int i = 0;i < t_list.size();i++){
+			Result res = new Result(t_list.get(i));
+			result_list.add(res);
+		}
+		for(int i = 0;i < t_list.size();i++){
+			DirectedDFS ra = new DirectedDFS(D,i);
+			for(int a = 0;a < ra.order.size();a++){
+				result_list.get(i).beatWins++;
+				result_list.get(ra.order.get(a)).beatLosses++;
+			}
+		}
 		//RESULT PRINTING
 		System.out.println("ORIGINAL EDGES: " + BEGINNING_EDGE_COUNT + " , NEW EDGE COUNT AFTER ITERATIONS: " + D.E);
 		System.out.println("EDGE LOSS: " + (1 - ((double)D.E / (double)BEGINNING_EDGE_COUNT))*100 + "%");
+		printRankings();
 		//printAdjacencyMatrix();
 		//printDirectEdges();
 	}
@@ -164,6 +179,12 @@ public class Algo {
 				System.out.println("        " + t_list.get(ra.order.get(a)));
 			}
 		}		
+	}
+	//Prints out the ranking of each team, Score based
+	private void printRankings(){
+		for(int i = 0;i < result_list.size();i++){
+			System.out.println(result_list.get(i).name + " , BeatWins: " + result_list.get(i).beatWins + " , BeatLosses: " + result_list.get(i).beatLosses);
+		}
 	}
 }
 //Result Class, each team gets one
