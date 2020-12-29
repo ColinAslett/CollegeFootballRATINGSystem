@@ -64,17 +64,13 @@ public class Algo {
 		
 		//ALGORITHM!!!!!!!!!!!!!!!
 		//Set abitrarily to 100, though this should be adjusted for future use in case it doesn not work
-		for(int i = 0;i < 100;i++){
-			if(numCycles() > 0){
-				ArrayList<Integer> s = len_cycles();
-				breakLoop(s.get(0),s.get(1));
-			}
-			else{
-				System.out.println("Num of Iterations: " + i);
-				break;
-			}
+		int count = 0;
+		while(numCycles() > 0){
+			ArrayList<Integer> s = len_cycles();
+			breakLoop(s.get(0),s.get(1));
+			count++;
 		}
-
+		System.out.println("Num of Iterations: " + count + " , Number of Cycles: " + numCycles());
 		//Calculating results
 		for(int i = 0;i < t_list.size();i++){
 			Result res = new Result(t_list.get(i));
