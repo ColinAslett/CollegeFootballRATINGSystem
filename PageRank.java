@@ -6,7 +6,7 @@ public class PageRank {
 	ArrayList<Team> res_list = new ArrayList<>();
 	DiGraph D;
 	//Constants for PageRank
-	double DAMP = .95;
+	double DAMP = .9;
 	public PageRank(ArrayList<Data> data_List) {
 		data_list = data_List;
 		System.out.println(data_List.size());
@@ -52,14 +52,20 @@ public class PageRank {
 		//determining number of outlinks each team has
 		int out_links = 0;
 		for(int i = 0;i < D.V;i++){
-			out_links = D.adj(i).size();
+			out_links = 0;
+			for(int a = 0;a < D.V;a++){
+				if(a != i){
+					if(D.adj(a).contains(i)){
+						out_links++;
+					}
+				}
+			}
 			Team t = new Team(t_list.get(i),out_links);
 			res_list.add(t);
 		}
-		
 		//Algorithm
 		int t = 0;
-		double e = .00001;
+		double e = .01;
 		double PR_0 = 0.0;
 		double PR_1 = 0.0;
 		while(true){
@@ -84,7 +90,7 @@ public class PageRank {
 		}
 		//Print Results
 		for(int i = 0;i < res_list.size();i++){
-			System.out.println(res_list.get(i).name + " : " + res_list.get(i).score);
+			System.out.println(res_list.get(i).name + "," + res_list.get(i).score);
 		}
 	}
 	public double PR(int t){
@@ -100,12 +106,12 @@ public class PageRank {
 		}
 		else{
 			double sum = 0.0;
-			double f = (1-DAMP)/D.V;
+			double f = (1.0-DAMP)/D.V;
 			for(int i = 0;i < D.V;i++){
 				double x = 0.0;
 				for(int a = 0;a < D.adj(i).size();a++){
 					if(res_list.get(D.adj(i).get(a)).links_outward > 0){
-						x += res_list.get(D.adj(i).get(a)).score / res_list.get(D.adj(i).get(a)).links_outward;
+						x += (res_list.get(D.adj(i).get(a)).score / res_list.get(D.adj(i).get(a)).links_outward);
 					}
 				}
 				//System.out.println(x);
