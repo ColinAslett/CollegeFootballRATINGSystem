@@ -1,6 +1,12 @@
 # CollegeFootballRATINGSystem
 
-I used Glicko 2 algorithm as presented in the paper: http://www.glicko.net/glicko/glicko2.pdf for the glicko.java file. I used beatGraph for the algo.java file.
+I used Glicko 2 algorithm as presented in the paper: http://www.glicko.net/glicko/glicko2.pdf for the glicko.java file. Algo.Java uses a network/graph based approach where any cycles are iterativelty destroyed smallest to largest until the graph is acyclic, this does result in data loss(-30-40% of games) but generates decent rankings. PageRank.Java uses a pageRank graph approach.
+
+Both of the graph/network ranking systems are quite poor without connections between conferences. Alabama was ranked the #1 team in the AP top 25 and by the CFB Playoff Comittee yet since the SEC only played in-conference in 2020 they lacked connections that would benefit them, particually for the acylic approach.
+
+In normal years the performance of the ayclic graph and pageRank is significantly better, an analysis will be conducted shortly to determine how all three of these algorithms rank vs baseline and each other in predicting outcomes.
+
+
 
 ## Modifications
 
