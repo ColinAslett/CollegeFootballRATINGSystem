@@ -6,6 +6,7 @@ Both of the graph/network ranking systems are quite poor without connections bet
 
 In normal years the performance of the ayclic graph and pageRank is significantly better, an analysis will be conducted shortly to determine how all three of these algorithms rank vs baseline and each other in predicting outcomes.
 
+All CFB Data Found on: https://collegefootballdata.com/
 
 
 ## Modifications
