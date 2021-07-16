@@ -1,45 +1,5 @@
 # CollegeFootballRATINGSystem
 
-I used Glicko 2 algorithm as presented in the paper: http://www.glicko.net/glicko/glicko2.pdf for the glicko.java file. Algo.Java uses a network/graph based approach where any cycles are iterativelty destroyed smallest to largest until the graph is acyclic, this does result in data loss(-30-40% of games) but generates decent rankings. PageRank.Java uses a pageRank graph approach.
+This program interprets CSV Division 1 College Football game result data from https://collegefootballdata.com/ and uses 4 rating systems to determine which team is the best. The four rating systems used are ELO, Glicko 2, PageRank, and BeatGraph. ELO is the most basic and only uses the elo of both players and the result of the game to determine each team’s new ELO. Glikco 2 works similarly but includes a rating deviation, essentially a standard deviation, to each teams rating. The rating deviation for each team starts at 350 but as Glicko 2 gets more confident it will decrease and the main way that it gains confidence is through teams playing more games.
 
-Both of the graph/network ranking systems are quite poor without connections between conferences. Alabama was ranked the #1 team in the AP top 25 and by the CFB Playoff Comittee yet since the SEC only played in-conference in 2020 they lacked connections that would benefit them, particually for the acylic approach.
-
-In normal years the performance of the ayclic graph and pageRank is significantly better, an analysis will be conducted shortly to determine how all three of these algorithms rank vs baseline and each other in predicting outcomes.
-
-All CFB Data Found on: https://collegefootballdata.com/
-
-
-## Modifications
-
-I made some small modifications to the original Glicko 2 algorithm. Every "Player" is supposed to start with a rating of 1500 and Rating deviation of 350, but I changed the starting rating for P5 teams. P5 teams start at a rating of 1750 while non-P5 teams start at 1500, rating deviation starts at 350 for both.
-
-This model only uses games from this season(2020) and the current top 25(as of 12/7) from the the model are:
-
-
-
-| Team |  Rating | Rating Deviation | High End 95% Confidence Interval Rating | Low End 95% Confidence Interval Rating |
-| :---: | :---: | :---: | :---: | :---: |
-| Notre Dame | 2242.789 | 159.720 | 2562.223 | 1923.348 |
-| Alabama | 2215.276 | 172.311 | 2559.898 | 1870.653 |
-| Ohio State | 2161.648 | 191.887 | 2545.428 | 1777.874 |
-| Clemson | 2140.521 | 150.733 | 2441.987 | 1839.056 | 
-| Miami | 2083.436 | 150.283 | 2384.003 | 1782.869 | 
-| Texas A&M | 2072.488 | 159.825 | 2402.139 | 1762.837 |
-| Indiana | 2072.307 | 166.376 | 2405.06 | 1739.554 |
-| Florida | 2041.116 | 153.487 | 2348.09 | 1734.141 |
-| Coastal Carolina | 2039.373 | 146.809 | 2332.993 | 1745.755 |
-| Colorado | 2031.517 | 224.367 | 2480.251 | 1582.782 |
-| USC | 2025.504 | 236.006 | 2497.516 | 1553.491 |
-| Cincinnati | 2020.507 | 162.547 | 2345.601 | 1695.414 |
-| Northwestern | 2004.523 | 182.813 | 2370.147 | 1638.898 |
-| North Carolina | 1968.468 | 141.612 | 2251.692 | 1685.243 |
-| NC State | 1965.395 | 133.101 | 2231.597 | 1699.193 |
-| Georgia | 1960.625 | 158.875 | 2278.375 | 1642.875 |
-| Iowa State | 1941.847 | 135.757 | 2213.361 | 1670.333 |
-| San Jose State | 1918.576 | 201.923 | 2322.422 | 1514.730 |
-| BYU | 1915.840 | 152.406 | 2220.652 | 1611.027 |
-| Oklahoma | 1893.436 | 151.433 | 2196.301 | 1890.570 |
-| Louisiana | 1885.932 | 148.215 | 2182.361 | 1589.502 |
-| Liberty | 1883.574 | 153.853 | 2191.281 | 1575.868 |
-| Tulsa | 1877.244 | 168.805 | 2214.854 | 1539.634 |
-| Iowa | 1873.984 | 166.936 | 2207.855 | 1540.112 |
+The other 2 rating systems, BeatGraph and PageRank, are graph-based rating systems. Unlike with ELO and Glicko 2, the rating of a team is affected by other teams playing. PageRank works by counting the quality of the wins over all the teams that a team has faced in a season. The quality of a win is determined by how well the other team has played that season, the better it has played the higher quality win it would give out. BeatGraph is the only rating system that purposefully destroys part of the game data in an attempt to create a acyclic network. In College Football this generally results in about 30-40% of game data being thrown away.
