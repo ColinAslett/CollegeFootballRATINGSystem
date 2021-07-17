@@ -1,40 +1,18 @@
 import java.util.ArrayList;
 
 public class PageRank {
-	ArrayList<Data> data_list = new ArrayList<>();
-	ArrayList<String> t_list = new ArrayList<>();
-	ArrayList<Team> res_list = new ArrayList<>();
+	ArrayList<Data> data_List;
+	ArrayList<String> t_list  = new ArrayList<>();
+	ArrayList<PTeam> res_list = new ArrayList<>();
 	DiGraph D;
-	//Constants for PageRank
-	double DAMP = .9;
-	public PageRank(ArrayList<Data> data_List) {
-		data_list = data_List;
-		System.out.println(data_List.size());
-		//Get all the teams and put them into the graph first
-		for(int i = 0;i < data_List.size();i++){
-			t_list.add(data_List.get(i).team1);
-			t_list.add(data_List.get(i).team2);
+	double DAMP = 0.9;
+	public PageRank(ArrayList<Data> game_List, ArrayList<Team> team_List) {
+		data_List = game_List;
+		for(int i = 0;i < team_List.size();i++) {
+			t_list.add(team_List.get(i).name);
 		}
-		ArrayList<String> new_team_list = new ArrayList<>();
-		for(int i = 0;i < t_list.size();i++){
-			if(new_team_list.size() == 0){
-				new_team_list.add(t_list.get(i));
-			}
-			else{
-				boolean found = false;
-				for(int a = 0;a < new_team_list.size();a++){
-					if(new_team_list.get(a).equals(t_list.get(i))){
-						found = true;
-					}
-				}
-				if(found == false){
-					new_team_list.add(t_list.get(i));
-				}
-			}
-		}
-		t_list = new_team_list;
 		D = new DiGraph(t_list);
-		//now we can add edges
+		
 		for(int i = 0;i < data_List.size();i++){
 			String t1 = data_List.get(i).winner;
 			String t2 = data_List.get(i).loser;
@@ -49,6 +27,7 @@ public class PageRank {
 			}
 			D.addEdge(i1, i2);
 		}
+		
 		//determining number of outlinks each team has
 		int out_links = 0;
 		for(int i = 0;i < D.V;i++){
@@ -60,9 +39,10 @@ public class PageRank {
 					}
 				}
 			}
-			Team t = new Team(t_list.get(i),out_links);
+			PTeam t = new PTeam(t_list.get(i),out_links);
 			res_list.add(t);
 		}
+		
 		//Algorithm
 		int t = 0;
 		double e = .01;
@@ -88,11 +68,8 @@ public class PageRank {
 				break;
 			}
 		}
-		//Print Results
-		for(int i = 0;i < res_list.size();i++){
-			System.out.println(res_list.get(i).name + "," + res_list.get(i).score);
-		}
 	}
+	
 	public double PR(int t){
 		if(t == 0){
 			for(int i = 0;i < res_list.size();i++){
@@ -125,13 +102,14 @@ public class PageRank {
 			return sum;
 		}
 	}
+
 }
-class Team{
+class PTeam{
 	String name = "";
 	int links_outward = 0;
 	double score = 0.0;//t
 	double new_score = 0.0;//t+1
-	public Team(String n, int l_o){
+	public PTeam(String n, int l_o){
 		name = n;
 		links_outward = l_o;
 	}
