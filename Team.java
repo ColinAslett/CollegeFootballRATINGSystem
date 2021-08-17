@@ -1,6 +1,7 @@
 
 public class Team {
 	String name = "";
+	int W=0,L=0;
 	double ELO,GLICKO,PAGE_RANK,BEAT_GRAPH;
 	public Team(String t) {
 		name = t;
