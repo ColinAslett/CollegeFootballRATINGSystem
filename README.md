@@ -24,3 +24,18 @@ BG is my interpretation of the BeatGraphs rating system. It is similar to PageRa
 ## HITS (Hyperlink-Induced Topic Search)
 
 This is my interpretation of the hyperlink-induced topic search (HITS) a link analysis algorithm that was originally designed to rank webpages. HITS uses the concept of “hubs” and “authorities”. A team's rating is a combination of the authoritative value (based on the quality of the content) and the hub value (based on the value of the of links to other pages). For more information on HITs, see: https://en.wikipedia.org/wiki/HITS_algorithm
+
+
+I use the R programming language and machine learning to build models based on classification algorithms described at cran.r-project.org  and summarized below. The algorithms classify (predict) games not yet played as either a home team victory or an away team victory. I use 4937 past games between season 2010 to 2020 for training and a different set of 670 past games over the same years for testing. More details can be found at, https://colinaslett.github.io/.
+
+Random Forest: Random Forest is a machine learning method that constructs many decision trees at training time as described here . I use the R programming language to build a model based on the ‘randomForest’ package described here .
+
+Support Vector Machines (SVM): A Support Vector Machine is a supervised machine learning algorithm. In my case, I use it for classification purposes where the SVMs attempt to find a hyperplane that best divides the dataset into two classes. More details on SVMs can be found here I use the R programming language to build a model based on the ‘e1071’ package described here .
+
+Neural Net: An artificial Neural Network is a machine learning model inspired by the neural networks in the brain. In our case, the first hidden layer has four neurons and the second hidden layer has three neurons. More details on a Neural Net can be found here I use the R programming language to build a model based on the ‘neural net’ package described here .
+
+Decision Tree: The decision tree is a predictive model. In my case, I build a classification tree based on our variables. Each node represents an "if-else" statement that can be followed to determine whether the decision tree predicts a home or away win. More details on decision trees can be found here I use the R programming language to build a model based on the ‘partykit’ package described here .
+
+Naive Bayes: A Naive Bayes classifier is a probabilistic machine learning model that is using for classification tasks based on the Bayes theorem. More details on Naive Bayes can be found here . I use the R programming language to build a model based on the ‘naivebayes’ package described here . The figures below show a probability density plot for each variable used in the model.
+
+k-Nearest Neighbor (k-NN): k-NN is a non-parametric classification method. Since we are solving a classification problem, we are using k-NN classification and the output is either "away" or "home". An object is classified based on the class most common among its "k" nearest neighbors where "k" is a small positive integer. More details can be found here I use the R programming language to build a model based on the ‘class’ package described here .
