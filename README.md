@@ -1,5 +1,6 @@
 # CollegeFootballRATINGSystem
 
+## Part 1: NCAA D1 College Football Team Ratings
 I have developed programs using Java to read the results of each NCAA D1 college football match during the season from collegefootballdata.com and then generate a rating and relative ranking of each team using five different rating systems. I have generated the rankings for the 2018-19, 2019-20, and 2020-21 seasons using the ratings systems described below. The results can be found at, https://colinaslett.github.io/.
 
 
@@ -25,7 +26,7 @@ BG is my interpretation of the BeatGraphs rating system. It is similar to PageRa
 
 This is my interpretation of the hyperlink-induced topic search (HITS) a link analysis algorithm that was originally designed to rank webpages. HITS uses the concept of “hubs” and “authorities”. A team's rating is a combination of the authoritative value (based on the quality of the content) and the hub value (based on the value of the of links to other pages). For more information on HITs, see: https://en.wikipedia.org/wiki/HITS_algorithm
 
-
+## Part 2: College Football Game Predictions
 I use the R programming language and machine learning to build models based on classification algorithms described at cran.r-project.org  and summarized below. The algorithms classify (predict) games not yet played as either a home team victory or an away team victory. I use 4937 past games between season 2010 to 2020 for training and a different set of 670 past games over the same years for testing. More details can be found at, https://colinaslett.github.io/.
 
 Random Forest: Random Forest is a machine learning method that constructs many decision trees at training time as described here . I use the R programming language to build a model based on the ‘randomForest’ package described here .
